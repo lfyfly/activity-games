@@ -128,6 +128,8 @@ export default {
         console.log(onePrizeDeg, rotateDeg, ((onePrizeDeg / 2 + rotateDeg) % 360))
 
         let resultIndex = this.prizes.length - Math.floor(((onePrizeDeg / 2 + rotateDeg) % 360) / onePrizeDeg)
+        console.log(resultIndex)
+        resultIndex = resultIndex == 6 ? 0 : resultIndex
         // console.log(resultIndex)
         this.result = this.prizes[resultIndex]
       }, this.duration)
