@@ -117,8 +117,7 @@ export default {
     run() {
       if (this.isRuning) return
       this.result = '' // 每次开始转的时候，清空抽奖结果
-      // this.randomDeg = Math.ceil(Math.random() * 360)
-      this.randomDeg = 45
+      this.randomDeg = Math.ceil(Math.random() * 360) // 随机抽奖
       this.allDeg += this.randomDeg
       this.turns += 10
       this.isRuning = true
