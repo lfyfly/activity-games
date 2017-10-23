@@ -6,7 +6,8 @@
     margin: 20px;
   }
   overflow: hidden;
-  max-width: 500px;
+  max-width: 420px;
+  min-width: 280px;
   margin: 0 auto;
   padding: 0 20px;
   img {
@@ -56,7 +57,7 @@
       }
     }
   }
-  .result{
+  .result {
     text-align: center;
     line-height: 3;
   }
@@ -125,9 +126,9 @@ export default {
         this.isRuning = false
         let rotateDeg = this.allDeg % 360
         let onePrizeDeg = 360 / this.prizes.length // 一个奖项对应的角度范围
-        console.log(onePrizeDeg,rotateDeg,((onePrizeDeg / 2 + rotateDeg)%360))
+        console.log(onePrizeDeg, rotateDeg, ((onePrizeDeg / 2 + rotateDeg) % 360))
 
-        let resultIndex = this.prizes.length - Math.floor(((onePrizeDeg / 2 + rotateDeg)%360) / onePrizeDeg)
+        let resultIndex = this.prizes.length - Math.floor(((onePrizeDeg / 2 + rotateDeg) % 360) / onePrizeDeg)
         // console.log(resultIndex)
         this.result = this.prizes[resultIndex]
       }, this.duration)
