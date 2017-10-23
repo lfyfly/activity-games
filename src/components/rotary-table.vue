@@ -45,6 +45,7 @@
       top: 50%;
       transform: translate(-50%, -50%);
       width: 26%;
+      cursor: pointer;
       .round {
         width: 100%;
       }
