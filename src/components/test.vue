@@ -157,6 +157,17 @@
       transform: rotate(5deg)
     }
   }
+  @keyframes shake1 {
+    25% {
+      transform: rotate(-5deg)
+    }
+    50% {
+      transform: rotate(0deg)
+    }
+    75% {
+      transform: rotate(5deg)
+    }
+  }
   .test-5 {
     overflow: hidden;
     background: #fff;
@@ -168,15 +179,15 @@
     width: 25%;
     transform-origin: bottom center;
     vertical-align: bottom;
+    &.animation {
+      animation: shake 1s linear infinite;
+    }
+    &.break-animation {
+      animation: shake1 .2s linear infinite;
+    }
     img.egg-img {
       width: 100%;
       display: block;
-    }
-    &.animation {
-      animation: shake 1s forwards linear infinite;
-    }
-    &.break-animation {
-      animation: shake .2s forwards linear infinite;
     }
   } // 底下滑上来
   .slide-top-enter-active,
@@ -214,8 +225,8 @@
 
 <!-- —————————————↓HTML————————分界线———————————————————————— -->
 <template lang="pug">
-.test-container(:class="{'is-pc':!isMobile}")
-  .test-inner(:class="{'is-pc':!isMobile}")
+.test-container
+  .test-inner
     transition(name="slide-bottom")
       .prize-tip(v-if="currPrizeIndex!==false")
         .close(@click="currPrizeIndex=false") ×
@@ -254,7 +265,7 @@
     .test.test-4(@click="eggStates=[]")
       p 重置蛋蛋
     .test-5
-      .egg(v-for="n in eggCount", :class="{animation:!eggStates[n-1],'break-animation':eggStates[n-1]==='breaking'}", @click="breakEggFn")
+      .egg(v-for="n in eggCount", :class="{animation:!eggStates[n-1],'break-animation':eggStates[n-1]=='breaking'}", @click="breakEggFn")
         img.egg-img(:data-index="n-1",:src="`/static/test/${eggStates[n-1]===true?'break-egg':'egg'}.png`")
 
 
@@ -304,8 +315,8 @@ export default {
   methods: {
     breakEggFn(e) {
       console.log(this.hasEggBreaking, e.target.className)
-      if (this.hasEggBreaking) {
-        alert('有蛋正在破壳，稍后再试')
+      if (this.hasEggBreaking || this.currPrizeIndex!==false ) {
+        // alert('有蛋正在破壳，稍后再试')
         return
       }
 
@@ -313,17 +324,17 @@ export default {
         this.currPrizeIndex = false
 
         const index = e.target.getAttribute('data-index')
-        console.log(index)
         if (this.eggStates[index]) {
           alert('该蛋已经被砸过')
           return
         }
         this.$set(this.eggStates, index, 'breaking')
+
         setTimeout(() => {
           this.$set(this.eggStates, index, true)
           this.currPrizeIndex = Math.floor(this.eggStates.length * Math.random())
           var crrPrize = this.prizes[this.currPrizeIndex]
-          if(crrPrize==='1毛都不给你') return
+          if (crrPrize === '1毛都不给你') return
           this.yourPrizes.push(crrPrize)
           localStorage.yourPrizes = JSON.stringify(this.yourPrizes)
         }, 2000)
@@ -331,7 +342,7 @@ export default {
     }
   },
   created() {
-    if(localStorage.yourPrizes) this.yourPrizes = JSON.parse(localStorage.yourPrizes)
+    if (localStorage.yourPrizes) this.yourPrizes = JSON.parse(localStorage.yourPrizes)
   },
   mounted() {
     setInterval(() => {
