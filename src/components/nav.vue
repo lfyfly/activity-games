@@ -1,9 +1,9 @@
 <!-- —————————————↓SCSS———————分界线————————————————————————— -->
 <style lang="scss">
-.nav-tag {
+.nav {
   padding: 10px;
   border-bottom: 1px solid #ccc;
-
+  white-space: nowrap;
   &>li {
     display: inline-block;
     margin: 5px;
@@ -49,7 +49,8 @@ export default {
     return {
       msg: 'this is from nav.vue',
       tags: [
-        { tag: '转盘抽奖', to: '/rotary-table' }
+        { tag: '转盘抽奖', to: '/rotary-table' },
+        { tag: '一些测试', to: '/test' }
       ]
     }
   },
